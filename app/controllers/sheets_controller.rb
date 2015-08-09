@@ -1,5 +1,5 @@
 class SheetsController < ApplicationController
-  before_action :set_sheet, only: [:show, :edit, :update, :destroy]
+  before_action :set_sheet, only: [:show, :edit, :update, :destroy, :render_csv, :csv_lines]
 
   # GET /sheets
   # GET /sheets.json
@@ -69,6 +69,37 @@ class SheetsController < ApplicationController
       format.html { redirect_to sheets_url, notice: 'Sheet was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def render_csv
+    set_file_headers
+    set_streaming_headers
+    response.status = 200
+    self.response_body = csv_lines
+  end
+
+  def set_file_headers
+    file_name = "sheet.csv"
+    headers["Content-Type"] = "text/csv"
+    headers["Content-disposition"] = "attachment; filename=\"#{file_name}\""
+  end
+
+  def set_streaming_headers
+    #nginx doc: Setting this to "no" will allow unbuffered responses suitable for Comet and HTTP streaming applications
+    headers['X-Accel-Buffering'] = 'no'
+
+    headers["Cache-Control"] ||= "no-cache"
+    headers.delete("Content-Length")
+  end
+
+  def csv_lines
+    csv_string = CSV.generate do | csv |
+      csv << Sheet.csv_header
+      @sheet.items.each do | item |
+        csv << @sheet.to_csv_row( item )
+      end
+    end
+    csv_string
   end
 
   private

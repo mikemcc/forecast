@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :sheets
+  resources :sheets do
+    member do
+      get 'render_csv'
+      post 'post_csv'
+    end
+  end
   resources :vendors
   resources :users
   resources :users
@@ -26,7 +31,7 @@ Rails.application.routes.draw do
   resources :users
   resources :vendors
   resources :sheets
-  resources :items 
+  resources :items
 
   # Example resource route with options:
   #   resources :products do
