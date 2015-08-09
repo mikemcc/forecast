@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @sheet.version %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sheet.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_sheet_path(@sheet) %> |
+<%= link_to 'Back', sheets_path %>
+
+
+<p>Items</p>
+
+<table>
+
+  <tr>
+    <th>id</th>
+    <th>&nbsp;</th>
+    <th>signature&nbsp;</th>
+<th>jan&nbsp;</th>
+<th>feb&nbsp;</th>
+<th>mar&nbsp;</th>
+<th>apr&nbsp;</th>
+<th>may&nbsp;</th>
+<th>jun&nbsp;</th>
+<th>jul&nbsp;</th>
+<th>aug&nbsp;</th>
+<th>sep&nbsp;</th>
+<th>oct&nbsp;</th>
+<th>nov&nbsp;</th>
+<th>dec&nbsp;</th>
+  </tr>
+
+<% @sheet.items.each do | item | %>
+  <tr>
+    <td><%= item.id %></td>
+    <td><%= link_to item.vendor.name, item_path( item ) %></td>
+    <td><%= item.signature  %></td>
+    <td><%= item.january %></td>
+    <td><%= item.february %></td>
+    <td><%= item.march %></td>
+    <td><%= item.april %></td>
+    <td><%= item.may %></td>
+    <td><%= item.june %></td>
+    <td><%= item.july %></td>
+    <td><%= item.august %></td>
+    <td><%= item.september %></td>
+    <td><%= item.october %></td>
+    <td><%= item.november %></td>
+    <td><%= item.december %></td>
+  </tr>
+<% end %>
+
+</table>
+<p><%= link_to "add item to sheet", new_item_path(:sheet_id => @sheet.id ) %></p>

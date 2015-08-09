@@ -1,0 +1,1 @@
+json.extract! @item, :id, :name, :user_id, :vendor_id, :sheet_id, :version, :signature, :january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december, :created_at, :updated_at

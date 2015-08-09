@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Vendor</th>
+      <th>Sheet</th>
+      <th>Version</th>
+      <th>Signature</th>
+      <th>January</th>
+      <th>February</th>
+      <th>March</th>
+      <th>April</th>
+      <th>May</th>
+      <th>June</th>
+      <th>July</th>
+      <th>August</th>
+      <th>September</th>
+      <th>October</th>
+      <th>November</th>
+      <th>December</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.user_id %></td>
+        <td><%= item.vendor_id %></td>
+        <td><%= item.sheet_id %></td>
+        <td><%= item.version %></td>
+        <td><%= item.signature %></td>
+        <td><%= item.january %></td>
+        <td><%= item.february %></td>
+        <td><%= item.march %></td>
+        <td><%= item.april %></td>
+        <td><%= item.may %></td>
+        <td><%= item.june %></td>
+        <td><%= item.july %></td>
+        <td><%= item.august %></td>
+        <td><%= item.september %></td>
+        <td><%= item.october %></td>
+        <td><%= item.november %></td>
+        <td><%= item.december %></td>
+        <td><%= link_to 'Show', item %></td>
+        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', new_item_path %>

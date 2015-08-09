@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
+
+<p>Sheets for <%= @user.name %></p>
+<% if @sheets.size < 1 %>
+  <p>This user has no sheets yet. <%= link_to "create a sheet", new_sheet_path( user_id: @user.id ) %></p>
+<% end %>
+
+<% @sheets.each do | sheet | %>
+  <div><span><%= sheet.id %></span><span><%= link_to "sheet details", sheet_path( sheet) %></span></div>
+<% end %>
+

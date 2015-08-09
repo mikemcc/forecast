@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @item.user_id %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @item.vendor_id %>
+</p>
+
+<p>
+  <strong>Sheet:</strong>
+  <%= @item.sheet_id %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @item.version %>
+</p>
+
+<p>
+  <strong>Signature:</strong>
+  <%= @item.signature %>
+</p>
+
+<p>
+  <strong>January:</strong>
+  <%= @item.january %>
+</p>
+
+<p>
+  <strong>February:</strong>
+  <%= @item.february %>
+</p>
+
+<p>
+  <strong>March:</strong>
+  <%= @item.march %>
+</p>
+
+<p>
+  <strong>April:</strong>
+  <%= @item.april %>
+</p>
+
+<p>
+  <strong>May:</strong>
+  <%= @item.may %>
+</p>
+
+<p>
+  <strong>June:</strong>
+  <%= @item.june %>
+</p>
+
+<p>
+  <strong>July:</strong>
+  <%= @item.july %>
+</p>
+
+<p>
+  <strong>August:</strong>
+  <%= @item.august %>
+</p>
+
+<p>
+  <strong>September:</strong>
+  <%= @item.september %>
+</p>
+
+<p>
+  <strong>October:</strong>
+  <%= @item.october %>
+</p>
+
+<p>
+  <strong>November:</strong>
+  <%= @item.november %>
+</p>
+
+<p>
+  <strong>December:</strong>
+  <%= @item.december %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', sheet_path(@item.sheet) %>

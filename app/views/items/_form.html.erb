@@ -1,0 +1,89 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :vendor_id %><br>
+    <%= f.select :vendor_id, options_for_select(select_vendors_for_item)  %>
+  </div>
+  <div class="field">
+    <%= f.label :sheet_id %><br>
+    <%= f.number_field :sheet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br>
+    <%= f.number_field :version %>
+  </div>
+  <div class="field">
+    <%= f.label :signature %><br>
+    <%= f.text_field :signature %>
+  </div>
+  <div class="field">
+    <%= f.label :january %><br>
+    <%= f.number_field :january %>
+  </div>
+  <div class="field">
+    <%= f.label :february %><br>
+    <%= f.number_field :february %>
+  </div>
+  <div class="field">
+    <%= f.label :march %><br>
+    <%= f.number_field :march %>
+  </div>
+  <div class="field">
+    <%= f.label :april %><br>
+    <%= f.number_field :april %>
+  </div>
+  <div class="field">
+    <%= f.label :may %><br>
+    <%= f.number_field :may %>
+  </div>
+  <div class="field">
+    <%= f.label :june %><br>
+    <%= f.number_field :june %>
+  </div>
+  <div class="field">
+    <%= f.label :july %><br>
+    <%= f.number_field :july %>
+  </div>
+  <div class="field">
+    <%= f.label :august %><br>
+    <%= f.number_field :august %>
+  </div>
+  <div class="field">
+    <%= f.label :september %><br>
+    <%= f.number_field :september %>
+  </div>
+  <div class="field">
+    <%= f.label :october %><br>
+    <%= f.number_field :october %>
+  </div>
+  <div class="field">
+    <%= f.label :november %><br>
+    <%= f.number_field :november %>
+  </div>
+  <div class="field">
+    <%= f.label :december %><br>
+    <%= f.number_field :december %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

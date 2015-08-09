@@ -1,0 +1,5 @@
+== README
+
+Ruby 2.1.5, Rails 4.2.2. 
+
+This is a working space in which to experiment with a CSV export/import feature.
