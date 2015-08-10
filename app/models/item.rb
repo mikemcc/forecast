@@ -11,17 +11,14 @@ class Item < ActiveRecord::Base
 
   # create an SHA1-signed hash of user id, vendor id, and vendor name
 	def sign
-    user_id = self.id
+    puts "self.id = #{self.id}"
+		puts "self.vendor.id = #{self.vendor.id}"
+		puts "self.vendor.name = #{self.vendor.name}"
+		item_id = self.id
 		vendor_id = self.vendor.id
 		vendor_name = self.vendor.name
 
-		rawtext = "#{user_id}#{vendor_id}#{vendor_name}"
-		rawtext.to_sha1
-	end #def
-
-  # can be called by any other object
-  def self.sign(user_id, vendor_id, vendor_name)
-		rawtext = "#{user_id}#{vendor_id}#{vendor_name}"
+		rawtext = "#{item_id}#{vendor_id}#{vendor_name}"
 		rawtext.to_sha1
 	end
 

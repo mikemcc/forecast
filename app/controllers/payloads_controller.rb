@@ -11,20 +11,12 @@ class PayloadsController < ApplicationController
   # POST /payloads
   # POST /payloads.json
   def create
-    #puts "*** payload contents ***"
-    #puts params[:payload][:contents]
     uploaded_io = params[:payload][:contents]
-    #puts uploaded_io.original_filename
-    #puts uploaded_io.read
-
     csv_text = uploaded_io.read
-
-    puts "*** look here ***"
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
       rhash = row.to_hash
-      puts rhash.to_s
-
+      puts "*** the following are straight from the CSV file ***"
       item_id = rhash["Item ID"].to_i
       puts "item_id = #{item_id}"
       sheet_id = rhash["Sheet ID"].to_i
@@ -33,10 +25,8 @@ class PayloadsController < ApplicationController
       puts "vendor_id = #{vendor_id}"
       vendor_name = rhash["Vendor Name"]
       puts "vendor_name = #{vendor_name}"
-      signature = rhash["Signature"]
-      puts "signature = #{signature}"
-
-
+      csv_signature = rhash["Signature"].to_s
+      puts "csv_signature = #{csv_signature}"
 
       sheet = @user.sheets.find(sheet_id)
       if sheet == nil
@@ -49,9 +39,11 @@ class PayloadsController < ApplicationController
         # this sheet does not contain this item
         raise Exception, "sheet does not contain item"
       end
+      puts "*** this is the item looked up via ActiveRecord ***"
       puts "item = #{item}"
       puts "item.id = #{item.id}"
       puts "item.vendor_id = #{item.vendor_id}"
+      puts "item.signature = #{item.signature}"
 
       if item.vendor_id != vendor_id
         puts "class of item.vendor_id = #{item.vendor_id.class}"
@@ -59,10 +51,7 @@ class PayloadsController < ApplicationController
         raise Exception, "item, vendor_id mismatch"
       end
 
-      check_sig = Item.sign(@user.id, vendor_id, vendor_name)
-      puts "CSV signature = #{signature}"
-      puts "check_sig = #{check_sig}"
-      if check_sig != signature
+      if item.signature != csv_signature
         raise Exception, "signature does not match"
       end
 
