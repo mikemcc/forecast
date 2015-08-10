@@ -58,3 +58,8 @@
 
 </table>
 <p><%= link_to "add item to sheet", new_item_path(:sheet_id => @sheet.id ) %></p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p><%= link_to "Upload a CSV to replace this Sheet", new_user_payload_path(user_id: @sheet.user.id) %></p>

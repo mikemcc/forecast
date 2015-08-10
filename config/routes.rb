@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :users
+  resources :users  do
+    resources :payloads
+  end
+  
   resources :vendors
   resources :items
 
-  resources :payloads
   resources :sheets do
     member do
       get 'render_csv'

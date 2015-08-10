@@ -1,5 +1,5 @@
 class SheetsController < ApplicationController
-  before_action :set_sheet, only: [:show, :edit, :update, :destroy, :render_csv, :csv_lines]
+  before_action :set_sheet, only: [:show, :edit, :update, :destroy, :render_csv, :csv_lines, :post_csv_form]
 
   # GET /sheets
   # GET /sheets.json
@@ -100,6 +100,10 @@ class SheetsController < ApplicationController
       end
     end
     csv_string
+  end
+
+  def post_csv_form
+
   end
 
   private

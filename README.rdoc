@@ -1,5 +1,7 @@
 == README
 
-Ruby 2.1.5, Rails 4.2.2. 
+Ruby 2.1.5, Rails 4.2.x.
 
 This is a working space in which to experiment with a CSV export/import feature.
+
+the 'payload' object is a singleton object designed mostly as a placeholder for file upload methods.

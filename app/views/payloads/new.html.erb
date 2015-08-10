@@ -1,5 +1,8 @@
 <h1>New Payload</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', payloads_path %>
+<%= form_for [@user, @payload] do |f| %>
+  <%= f.file_field :contents %>
+  <%= hidden_field_tag "payload[user_id]", @user.id %>
+  <%= submit_tag("Upload") %>
+<% end %>
+<%= link_to 'Back', user_path(@user) %>

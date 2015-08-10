@@ -19,4 +19,10 @@ class Item < ActiveRecord::Base
 		rawtext.to_sha1
 	end #def
 
+  # can be called by any other object
+  def self.sign(user_id, vendor_id, vendor_name)
+		rawtext = "#{user_id}#{vendor_id}#{vendor_name}"
+		rawtext.to_sha1
+	end
+
 end
