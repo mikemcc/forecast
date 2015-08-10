@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
+
+  resources :users
+  resources :vendors
+  resources :items
+
+  resources :payloads
   resources :sheets do
     member do
       get 'render_csv'
-      post 'post_csv'
     end
   end
-  resources :vendors
-  resources :users
-  resources :users
-  resources :items
-  resources :vendors
-  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -27,11 +26,6 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
-  resources :users
-  resources :vendors
-  resources :sheets
-  resources :items
 
   # Example resource route with options:
   #   resources :products do
