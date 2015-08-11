@@ -22,4 +22,8 @@ class Item < ActiveRecord::Base
 		rawtext.to_sha1
 	end
 
+  def self.check_signature(item_id, vendor_id, vendor_name)
+		rawtext = "#{item_id}#{vendor_id}#{vendor_name}"
+		rawtext.to_sha1		
+	end
 end

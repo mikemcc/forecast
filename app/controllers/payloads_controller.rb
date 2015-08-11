@@ -25,7 +25,7 @@ class PayloadsController < ApplicationController
       puts "vendor_id = #{vendor_id}"
       vendor_name = rhash["Vendor Name"]
       puts "vendor_name = #{vendor_name}"
-      csv_signature = rhash["Signature"].to_s
+      csv_signature = rhash["Signature"]
       puts "csv_signature = #{csv_signature}"
 
       sheet = @user.sheets.find(sheet_id)
@@ -51,7 +51,11 @@ class PayloadsController < ApplicationController
         raise Exception, "item, vendor_id mismatch"
       end
 
-      if item.signature != csv_signature
+      # compute the signature based on information provided by
+      # the CSV
+      check_signature = Item.check_signature(item_id, vendor_id, vendor_name)
+      puts "check_signature = #{check_signature}"
+      if check_signature != csv_signature
         raise Exception, "signature does not match"
       end
 

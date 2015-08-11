@@ -5,3 +5,7 @@ Ruby 2.1.5, Rails 4.2.x.
 This is a working space in which to experiment with a CSV export/import feature.
 
 the 'payload' object is a singleton object designed mostly as a placeholder for file upload methods.
+
+The 'signature' field in the item object has no value in the database. The signature is computed when the CSV is written, and again when the CSV is read in. When the CSV file is written, the signature is written to the database but we never use the stored-in-database value. So, why have this field in the model if we don't really use it? Sheer laziness; including the signature as an attribute of the item model lets us write "csv << @sheet.to_csv_row( item )"
+
+

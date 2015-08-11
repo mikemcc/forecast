@@ -96,6 +96,8 @@ class SheetsController < ApplicationController
     csv_string = CSV.generate do | csv |
       csv << Sheet.csv_header
       @sheet.items.each do | item |
+        # recalculate the item signature before we send the CSV
+        item.signature = item.sign
         csv << @sheet.to_csv_row( item )
       end
     end
