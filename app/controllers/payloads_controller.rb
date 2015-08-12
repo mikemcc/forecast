@@ -11,6 +11,39 @@ class PayloadsController < ApplicationController
   # POST /payloads
   # POST /payloads.json
   def create
+
+    labels_to_keys = {}
+    labels_to_keys["Item ID"] = "item_id"
+    labels_to_keys["Sheet ID"] = "sheet_id"
+    labels_to_keys["Vendor ID"] = "vendor_id"
+    labels_to_keys["Vendor Name"] = "vendor_name"
+    labels_to_keys["Jan"] = "january"
+    labels_to_keys["Feb"] = "february"
+    labels_to_keys["Mar"] = "march"
+    labels_to_keys["Apr"] = "april"
+    labels_to_keys["May"] = "may"
+    labels_to_keys["Jun"] = "june"
+    labels_to_keys["Jul"] = "july"
+    labels_to_keys["Aug"] = "august"
+    labels_to_keys["Sep"] = "september"
+    labels_to_keys["Oct"] = "october"
+    labels_to_keys["Nov"] = "november"
+    labels_to_keys["Dec"] = "december"
+    labels_to_keys["Signature"] = "signature"
+
+    # there are columns in the spreadsheet that are useful in
+    # CSV form, but that we don't need to update when we're
+    # operating on the item
+    skip_keys   = ["signature","vendor_name","item_id", "vendor_id", "sheet_id"]
+
+    # we automatically convert all CSV data to integer, unless
+    # the column is specifically listed as a string value
+    string_keys = ["signature", "vendor_name"]
+
+    # make sure that we don't try to operate on multiple 'sheet'
+    # objects with a single CSV file
+    previous_sheet_id = nil
+
     uploaded_io = params[:payload][:contents]
     csv_text = uploaded_io.read
     csv = CSV.parse(csv_text, :headers => true)
@@ -32,6 +65,13 @@ class PayloadsController < ApplicationController
       if sheet == nil
         # trying to upload a sheet that does not belong to the User
         raise Exception, "sheet does not belong to user"
+      end
+
+      # are we trying to change items from multiple sheets?
+      if previous_sheet_id != nil && previous_sheet_id != sheet_id
+        raise Exception, "Cannot mix and match sheets!"
+      else
+        previous_sheet_id = sheet_id
       end
 
       item = sheet.items.find(item_id)
@@ -59,29 +99,37 @@ class PayloadsController < ApplicationController
         raise Exception, "signature does not match"
       end
 
+      row_attributes = {}
+      # loop through keys of csv
+      rhash.keys.each do | rkey |
+        puts "lookging for database table equivalent of #{rkey}"
+        # get database key
+        dkey = labels_to_keys["#{rkey}"]
+        # there are columns on the spreadsheet that we don't need to update
+        if skip_keys.include?(dkey)
+          next
+        end
+        if string_keys.include?(dkey)
+          row_attributes[dkey.to_sym] = rhash[rkey]
+        else
+          row_attributes[dkey.to_sym] = rhash[rkey].to_i
+        end
+      end
+
+      # now try to upate item using attributes hash
+      item.update(row_attributes)
+      flash[:notice] = "successes: "
+      flash[:alert] = "failures: "
+      if item.valid?
+        item.save
+        flash[:notice] = flash[:notice] + "Updated item #{item.id}. "
+      else
+        flash[:alert] = flash[:alert] + "Failed to save item ##{item.id} - proposed changes were invalid. "
+      end
     end
 
-    #File.open(Rails.root.join('public',
-    #                          'uploads',
-    #                           uploaded_io.original_filename), 'wb') do |file|
-    #    file.write(uploaded_io.read)
-    #  end
+    redirect_to sheet_path(previous_sheet_id)
 
-    flash[:notice] = "check the log file"
-
-    redirect_to sheets_path(user_id: @user.id)
-
-    #@payload = Payload.new(payload_params)
-
-    #respond_to do |format|
-    #  if @payload.save
-    #    format.html { redirect_to @payload, notice: 'Payload was successfully created.' }
-    #    format.json { render :show, status: :created, location: @payload }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @payload.errors, status: :unprocessable_entity }
-    #  end
-    #end
   end
 
   private
