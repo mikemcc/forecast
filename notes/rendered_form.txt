@@ -1,0 +1,14 @@
+<form 
+  class="new_payload" 
+  id="new_payload" 
+  enctype="multipart/form-data" 
+  action="/users/1/payloads" 
+  accept-charset="UTF-8" 
+  method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input type="hidden" name="authenticity_token" value="PWrw/oX7gws66TVwUzP+IkkEeczufC77bjcMtg+wZhYcv3pKzE2kSaRzLFZ6qSY4IHXPKlBpQTmRLVK6Eb5c2Q==" />
+  <input type="file" name="payload[contents]" id="payload_contents" />
+  <input type="hidden" name="payload[user_id]" id="payload_user_id" value="1" />
+  <input type="submit" name="commit" value="Upload" />
+</form>
+
