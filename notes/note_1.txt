@@ -1,0 +1,4 @@
+This is a disposable document. Its only purpose is to hold trivial 
+edits so that I can trigger a git push, which will (in theory ) 
+trigger a Jenkins jobs that is watching this repo.
+
