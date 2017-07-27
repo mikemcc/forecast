@@ -9,3 +9,5 @@ the 'payload' object is a singleton object designed mostly as a placeholder for 
 The 'signature' field in the item object has no value in the database. The signature is computed when the CSV is written, and again when the CSV is read in. When the CSV file is written, the signature is written to the database but we never use the stored-in-database value. So, why have this field in the model if we don't really use it? Sheer laziness; including the signature as an attribute of the item model lets us write "csv << @sheet.to_csv_row( item )"
 
 
+This is a manual edit to the README file. The purose of this edit is to trigger a commit message.
+
