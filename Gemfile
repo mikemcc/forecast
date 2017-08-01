@@ -55,6 +55,9 @@ group :development, :test do
   gem 'spring'
 
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
+  gem 'headless'
   gem 'simplecov', require: false
   gem 'simplecov-json', require: false
   gem 'simplecov-rcov', require: false
